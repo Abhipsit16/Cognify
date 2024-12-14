@@ -1,4 +1,3 @@
-
 function UserHome({params}:{params :{ UserID : string}}) {
   return (
     <div>

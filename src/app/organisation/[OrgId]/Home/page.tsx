@@ -1,6 +1,4 @@
-import React from 'react'
-
-function OrganisatonHome({params}:{params :{ OrgID : string}}) {
+function OrgHome({params}:{params :{ OrgID : string}}) {
   return (
     <div>
       <h1>Organisation Home {params.OrgID}</h1>
@@ -8,4 +6,4 @@ function OrganisatonHome({params}:{params :{ OrgID : string}}) {
   )
 }
 
-export default OrganisatonHome
+export default OrgHome
