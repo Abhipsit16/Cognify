@@ -1,3 +1,4 @@
+// import { strict } from 'assert';
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
@@ -5,6 +6,6 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-});
+},{strict : false});
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
