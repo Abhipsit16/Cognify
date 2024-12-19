@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-  "dev": "concurrently \"next dev --port 3000\" \"npx nodemon src/server/socketServer.js --watch\"",
-  "build": "next build",
-  "start": "next start && node src/server/socketServer.js",
-  "lint": "next lint"
+    "dev": "concurrently \"next dev --port 3000\" \"npx nodemon src/server/socketServer.js --watch\"",
+    "build": "next build",
+    "start": "next start && node src/server/socketServer.js",
+    "lint": "next lint"
   },
   "dependencies": {
     "cognify": "file:",
     "cors": "^2.8.5",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
     "mongoose": "^8.9.0",
     "next": "15.1.0",
     "react": "^19.0.0",
