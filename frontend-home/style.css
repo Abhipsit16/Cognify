@@ -96,13 +96,11 @@ header nav ul li a:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-
-
 /* Features Section */
 .features {
     text-align: center;
     padding: 60px 20px;
-    background-image: url('features_bg.jpg'); /* Add your background image here */
+    background-image: url("/public/features_bg.jpg"); /* Add your background image here */
     background-size: cover; /* Ensures the background covers the section */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the image from repeating */
@@ -234,30 +232,60 @@ header nav ul li a:hover {
 
 /* Footer Section */
 footer {
-    background-color: #0a1f44;
-    color: white;
+    background-color: #0a1f44; /* Dark theme background */
+    color: white; /* Text color */
+    padding: 20px 10px;
     text-align: center;
-    padding: 20px;
-    font-size: 1.0rem;
-    border-top: 4px solid #007BFF;
-}
-
-footer nav a {
-    color: #fff;
-    margin: 0 15px;
+    font-size: 1rem;
+  }
+  
+  footer .footer-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  footer nav {
+    margin: 10px 0;
+  }
+  
+  footer nav a {
+    text-decoration: none;
+    color: white;
+    margin: 0 5px;
+    font-size: 0.9rem;
+    transition: color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  footer nav a i {
+    margin-right: 5px; /* Spacing between icon and text */
+    font-size: 1rem;
+  }
+  
+  footer nav a:hover {
+    color: #78dd8b; /* Green hover effect */
+  }
+  
+  footer .footer-socials {
+    margin-top: 15px;
+  }
+  
+  footer .footer-socials a {
+    text-decoration: none;
+    color: white;
+    margin: 0 8px;
+    font-size: 1.2rem; /* Icon size */
     transition: color 0.3s ease;
-}
-
-footer nav a img.social-icon {
-    width: 20px; /* Adjust the size of the logo */
-    height: 13px;
-    margin-right: -1px; /* Adds spacing between logo and text */
-    vertical-align: middle;
-}
-
-footer nav a:hover {
-    color: #78dd8b;
-}
+  }
+  
+  footer .footer-socials a:hover {
+    color: #78dd8b; /* Green hover effect */
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
 
 /* Responsive Design */
 @media (max-width: 768px) {
