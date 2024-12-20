@@ -20,8 +20,10 @@ function Features({name, text}: FeatureProps) {
     onMouseLeave={()=>sethovered(false)}
     transition={{ duration: 3, delay:1, damping: 20}}
 >
-      <h3 className="text-4xl fond-bold text-center">{name}</h3>
-      <p className="h-3/4 text-xl text-gray-100 text-center">{text}</p>
+      <h3 className={`h-1/2 text-4xl fond-bold text-center ${
+        hovered? "text-black bg-white":"text-white bg-black"
+      } rounded-t shadow-zinc-200`}>{name}</h3>
+      <p className="h-1/2 text-xl text-gray-100 text-center">{text}</p>
     </motion.div>
   )
 }

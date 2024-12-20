@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { UserButton } from '@clerk/nextjs';
 
 const NavigationBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -46,7 +47,7 @@ const NavigationBar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-8">
           <ul className="flex gap-8">
             {navItems.map((item) => (
               <li key={item.name}>
@@ -59,6 +60,20 @@ const NavigationBar = () => {
               </li>
             ))}
           </ul>
+          {/* Add UserButton */}
+          <UserButton
+            showName
+            appearance={{
+              elements: {
+                userButtonPrimaryIdentifier: {
+                  fontSize: "32px",
+                  fontWeight: "bold",
+                  color: "#ffffff",
+                  fontFamily: "'Geist Sans', sans-serif",
+                },
+              },
+            }}
+          />
         </div>
 
         {/* Mobile Menu Button */}
@@ -100,6 +115,15 @@ const NavigationBar = () => {
                   </Link>
                 </motion.li>
               ))}
+              {/* Add UserButton to Mobile Menu */}
+              <motion.li
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <UserButton showName />
+              </motion.li>
             </ul>
           </motion.div>
         )}
