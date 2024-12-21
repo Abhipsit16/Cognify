@@ -15,7 +15,7 @@ dbConnect();
 const clients = new Map();
 
 io.on("connection", (socket) => {
-  console.log("A user connected");
+  console.log("A user connected", socket.id);
 
   // Register the client with the socket
   socket.on("register", async (userId, username) => {
@@ -30,6 +30,14 @@ io.on("connection", (socket) => {
     } catch (error) {
       console.error("Error registering socket:", error);
     }
+  });
+
+  socket.on('userData', (userData) => {
+    console.log('Received user data:', userData);
+    // You can now use the user data (e.g., store it, process it, etc.)
+    
+    // Example: Send a confirmation back to the client
+    socket.emit('userDataReceived', { message: 'User data received successfully' });
   });
 
   socket.on("disconnect", () => {

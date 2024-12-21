@@ -1,5 +1,10 @@
+"use client"
+
 import Features from "@/components/features";
 import Feedbacks from "@/components/feedbacks";
+import socket from "@/lib/socketClient";
+import { useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
   const features = [
@@ -26,6 +31,35 @@ export default function Home() {
       designation: "Researcher",
     },
   ];
+  
+  const { user, isLoaded, isSignedIn } = useUser(); // Call useUser at the top level
+
+  useEffect(() => {
+    // Make sure the socket connection is established
+    socket.on('connect', () => {
+      console.log('Connected to server with socket ID:', socket.id);
+    });
+
+    //Has to be debugged
+    if (isLoaded && isSignedIn) {
+      socket.emit('userData', {
+        email: user.emailAddresses[0], 
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+      });
+    }
+
+    // Listen for other events here, like 'message', 'disconnect', etc.
+    socket.on('message', (data) => {
+      console.log('Received message:', data);
+    });
+
+    // Clean up socket connections when the component unmounts
+    return () => {
+      socket.disconnect();
+    };
+  }, [isLoaded, isSignedIn, user]);
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-self-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
