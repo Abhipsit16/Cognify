@@ -11,7 +11,7 @@ function Features({name, text}: FeatureProps) {
   const [hovered, sethovered]=useState(false)
   return (
     <motion.div 
-    className={`w-96 h-48 rounded-md flex-col items-center bg-gradient-to-r 
+    className={`w-96 h-60 px-2 py-2 rounded-md flex-col items-center bg-gradient-to-r 
         ${
             hovered? "from-red-500 to-yellow-500 via-orange-500"
             :"from-purple-700 to-blue-500 via-blue-700"
@@ -22,7 +22,7 @@ function Features({name, text}: FeatureProps) {
 >
       <h3 className={`h-1/2 text-4xl fond-bold text-center ${
         hovered? "text-black bg-white":"text-white bg-black"
-      } rounded-t shadow-zinc-200`}>{name}</h3>
+      } rounded px-2 py-2 shadow-zinc-200`}>{name}</h3>
       <p className="h-1/2 text-xl text-gray-100 text-center">{text}</p>
     </motion.div>
   )
