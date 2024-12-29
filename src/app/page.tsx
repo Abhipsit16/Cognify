@@ -35,31 +35,27 @@ export default function Home() {
   const { user, isLoaded, isSignedIn } = useUser(); // Call useUser at the top level
 
   useEffect(() => {
-    // Make sure the socket connection is established
-    socket.on('connect', () => {
-      console.log('Connected to server with socket ID:', socket.id);
-    });
 
-    //Has to be debugged
     if (isLoaded && isSignedIn) {
       socket.emit('userData', {
-        email: user.emailAddresses[0], 
+        email: user.emailAddresses[0].emailAddress, 
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
+        socket_id:socket.id
       });
     }
 
     // Listen for other events here, like 'message', 'disconnect', etc.
-    socket.on('message', (data) => {
+    socket.on('message', (data: any) => {
       console.log('Received message:', data);
     });
-
-    // Clean up socket connections when the component unmounts
-    return () => {
-      socket.disconnect();
-    };
-  }, [isLoaded, isSignedIn, user]);
+    // return ()=>{
+    //   socket.on("disconnect", ()=>{
+    //     console.log("User disconnected");
+    //   })
+    // }
+  }, []);
 
   return (
     <div className="grid grid-rows-[auto_1fr_auto] items-center justify-self-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
