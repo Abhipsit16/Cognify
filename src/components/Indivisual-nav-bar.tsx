@@ -6,10 +6,12 @@ import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { UserButton } from '@clerk/nextjs';
+import { useUser } from '@clerk/nextjs';
 
 const NavigationBar = () => {
   // const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useUser();
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -21,9 +23,8 @@ const NavigationBar = () => {
   // }, []);
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'My Feed', path: '/myFeed' },
-    { name: 'Post', path: '/post' },
+    { name: 'Home', path: user ? `/individual/${user.id}/Home` : '/sign-in' },
+    { name: 'Post', path: user ? `/individual/${user.id}/posts` : '/sign-in' },
     { name: 'Help', path: '/help' },
   ];
 
