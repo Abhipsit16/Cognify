@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  _id: {type: String},
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  role: { type: String, enum: ['individual', 'organization'], default: 'individual' }, // Add role field
   createdAt: { type: Date, default: Date.now },
-  clientId: { type: String, required: true, unique: true },
-  socketId: { type: String, required: true },
+  clerkId: { type: String, required: true, unique: true },
+  socketId: { type: String},
+  tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }], // Reference to Tag documents
+
 },{strict : false});
 
 module.exports= mongoose.models.User || mongoose.model('User', UserSchema);

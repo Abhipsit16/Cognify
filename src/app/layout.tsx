@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NavigationBar from "../components/nav-bar";
+// import NavigationBar from "../components/nav-bar";
 import Footer from "@/components/footer";
 import {
   ClerkProvider,
   SignIn,
   SignedIn,
   SignedOut,
-  UserButton
+  // UserButton
 } from '@clerk/nextjs';
 
 const geistSans = Geist({
@@ -50,7 +50,7 @@ export default function RootLayout({
         </div>
         </SignedOut>
         <SignedIn>
-        <NavigationBar/>
+        
         {children}
         <Footer/>
         </SignedIn>
