@@ -19,7 +19,11 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
-  const [tags] = useState(['amine','']);
+  const [tags, setTags] = useState<string[]>([]);
+
+  const handleSearch = (query: string) => {
+    setTags([query]);
+  };
 
   useEffect(() => {
     if (isLoaded) {
@@ -48,15 +52,26 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
           body: JSON.stringify({ userID }),
         });
         
+        
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
+        
         const userData = await response.json();
+
+        const tagResponse = await fetch('/api/getmytag', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tagIDs: userData.tags })
+        });
+        const tagData = await tagResponse.json();
         setCurrentUser(userData);
+        setTags(tagData.tags);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     };
+    
     fetchUserData();
   },[userID, isAuthorized]);
   if (!isLoaded) {
@@ -68,7 +83,7 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
 
   return (
     <div className="p-4">
-      <NavigationBar/>
+      <NavigationBar onSearch={handleSearch} />
       <br />
       <br />
    
@@ -92,7 +107,12 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
       <CreatePost />
       <br />
       <br />
-      <ShowPost tags={tags} />
+      <h1>Posts with tags : {tags}</h1>
+      {tags.length > 0 ? (
+        <ShowPost tags={tags} />
+      ) : (
+        <p>Loading tags...</p>
+      )}
       <br />
       <br />
     </div>

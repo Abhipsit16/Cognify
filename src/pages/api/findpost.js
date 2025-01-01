@@ -13,6 +13,7 @@ export default async function handler(req, res) {
   }
 
   const { tags } = req.query; // Pass tags as a comma-separated string, e.g., ?tags=tag1,tag2
+  console.log(tags);
   if (!tags) {
     return res.status(400).json({ error: 'Tags are required' });
   }
