@@ -1,0 +1,47 @@
+<!-- Feed Section (Posts) -->
+<div class="w-2/3 space-y-6 p-8 pt-0 ml-28">
+    <!-- Post Card 1 -->
+    <div class="border border-gray-300 rounded-lg shadow-md p-6 space-y-4">
+        <!-- Post Header -->
+        <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
+            <div class="flex items-center space-x-6">
+                <!-- User Profile Image -->
+                <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+                    <img src="{profileImage}" alt="img" class="w-full h-full object-cover">
+                </div>
+                <h3 class="font-semibold">{userName}</h3>
+            </div>
+            <span class="text-sm bg-green-100 text-green-800 p-2 rounded-full">{public/private}</span>
+        </div>
+
+        <!-- Post Content -->
+        <div>
+            <h2 class="mb-4">{postHeading}</h2>
+            <div class="border border-gray-200 rounded-lg p-4 text-sm text-gray-800">
+                <p>{postDescription}</p>
+                <div class="mt-4 flex space-x-4">
+                    <img src="{sampleImage1}" alt="Sample Image 1" class="w-20 h-20 rounded-lg object-cover">
+                    <img src="{sampleImage2}" alt="Sample Image 2" class="w-20 h-20 rounded-lg object-cover">
+                </div>
+            </div>
+        </div>
+
+        <!-- Post Footer -->
+        <div class="flex items-center justify-between border-t border-gray-300 pt-4 mt-4">
+            <div class="text-sm text-gray-500 space-x-2">
+                <span>Posted on: {postedOn}</span>
+                <span>|</span>
+                <span>{postTime}</span>
+                <div class="mt-2 space-x-1">
+                    <span class="inline-block bg-blue-100 text-blue-800 rounded-full px-2 py-1 text-xs">{tag1}</span>
+                    <span class="inline-block bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs">{tag2}</span>
+                </div>
+            </div>
+            <button
+                class="bg-blue-600 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400">Request
+                Full Data
+            </button>
+
+        </div>
+    </div>
+</div>

@@ -11,86 +11,147 @@
 </head>
 
 <body class="bg-white text-gray-800 text-xl">
-<!-- Navbar -->
-<header class="bg-gray-100 shadow-xl sticky top-0 z-50 mb-4">
-  <div class="container m-auto flex items-center justify-between p-6">
-    <!-- Title -->
-    <h1 class="text-3xl font-bold">COgnify</h1>
+  <!-- Navbar -->
+  <header class="bg-gray-100 shadow-md sticky top-0 z-50 mb-2">
+    <div class="container m-auto flex items-center justify-between p-6">
+      <!-- Title -->
+      <h1 class="text-3xl font-bold">COgnify</h1>
 
-    <!-- Centered Navbar links -->
-    <nav class="flex justify-center space-x-6">
-      <a href="home.html" class="hover:text-blue-800 hover:underline">Home</a>
-      <a href="chatroom.html" class="hover:text-blue-800 hover:underline">Chatroom</a>
-      <a href="dataroom.html" class="hover:text-blue-800 hover:underline">Dataroom</a>
-    </nav>
+      <!-- Centered Navbar links -->
+      <nav class="flex justify-center space-x-6">
+        <a href="home.html" class="hover:text-blue-800 hover:underline">Home</a>
+        <a href="chatroom.html" class="hover:text-blue-800 hover:underline">Chatroom</a>
+        <a href="dataroom.html" class="hover:text-blue-800 hover:underline">Dataroom</a>
+      </nav>
 
-    <!-- Rightmost Navbar links -->
-    <nav class="flex justify-center space-x-6">
-      <a href="../components/data-req_notif.html" class="hover:text-blue-800 flex space-x-2">
-        <span>Requests</span>
-        <i class="fa-regular fa-bell text-lg"></i>
-      </a>
-      
-      </a>
-      <a href="profile.html" class="hover:text-blue-800 flex space-x-2">
-        <!-- Default Profile Icon inside a Circle, would make it dynamic and update the user pfp later using js -->
-        <span>Profile</span>
-        <div class="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
-          <i class="fa-solid fa-user text-base"></i>
-        </div>
-      </a>
-    </nav>
-  </div>
-</header>
+      <!-- Rightmost Navbar links -->
+      <nav class="flex justify-center space-x-6">
+        <a href="../components/data-req_notif.html" class="hover:text-blue-800 flex space-x-2">
+          <span>Requests</span>
+          <i class="fa-regular fa-bell text-lg"></i>
+        </a>
 
-<!-- Search Bar and Post Button -->
-<section class="container mx-auto p-4 flex items-center space-x-4">
-  <!-- Search Bar -->
-  <input 
-    type="text" 
-    placeholder="Search..." 
-    class="flex-1 p-2 bg-gray-100 border border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none" 
-  />
-  
-  <!-- Post Button -->
-  <a 
-    href="../components/post-layout.html" 
-    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-center"
-  >
-    Create Post
-  </a>
-</section>
-
-<!-- Main Content -->
-<main class="container mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-6">
-  <!-- Posts Section (Left Side) -->
-  <section class="lg:col-span-3 space-y-6">
-    <!-- Placeholder for Posts -->
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Post 1</p>
+        </a>
+        <a href="profile.html" class="hover:text-blue-800 flex space-x-2">
+          <!-- Default Profile Icon inside a Circle, would make it dynamic and update the user pfp later using js -->
+          <span>Profile</span>
+          <div class="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+            <i class="fa-solid fa-user text-base"></i>
+          </div>
+        </a>
+      </nav>
     </div>
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Post 2</p>
-    </div>
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Post 3</p>
-    </div>
+  </header>
+
+  <!-- Search Bar and Post Button Section -->
+  <section class="container p-8 flex flex-row justify-between space-y-0 space-x-4">
+    <!-- Search Bar (Full Width of Posts Section) -->
+    <input type="text" placeholder="Search..."
+      class="w-[950px] p-2.5 bg-gray-100 border border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-blue-500 focus:outline-none ml-28" />
+
+    <!-- Post Button -->
+    <a href="../components/post-layout.html"
+      class="w-1/4 bg-blue-600 text-white text-center p-2 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 mt-4 lg:mt-0">
+      Create Post
+    </a>
   </section>
 
-  <!-- Recommendations Section (Right Side) -->
-  <aside class="space-y-6">
-    <!-- Placeholder for Recommendations -->
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Recommended user 1</p>
+  <!-- Feed Section (Posts) -->
+  <div class="w-2/3 space-y-6 p-8 pt-0 ml-28">
+    <!-- Post Card 1 -->
+    <div class="border border-gray-300 rounded-lg shadow-md p-6 space-y-4">
+      <!-- Post Header -->
+      <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
+        <div class="flex items-center space-x-6">
+          <!-- User Profile Image -->
+          <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+            <img src="{profileImage}" alt="img" class="w-full h-full object-cover">
+          </div>
+          <h3 class="font-semibold">{userName}</h3>
+        </div>
+        <span class="text-sm bg-green-100 text-green-800 p-2 rounded-full">{public/private}</span>
+      </div>
+
+      <!-- Post Content -->
+      <div>
+        <h2 class="mb-4">{postHeading}</h2>
+        <div class="border border-gray-200 rounded-lg p-4 text-sm text-gray-800">
+          <p>{postDescription}</p>
+          <div class="mt-4 flex space-x-4">
+            <img src="{sampleImage1}" alt="Sample Image 1" class="w-20 h-20 rounded-lg object-cover">
+            <img src="{sampleImage2}" alt="Sample Image 2" class="w-20 h-20 rounded-lg object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Footer -->
+      <div class="flex items-center justify-between border-t border-gray-300 pt-4 mt-4">
+        <div class="text-sm text-gray-500 space-x-2">
+          <span>Posted on: {postedOn}</span>
+          <span>|</span>
+          <span>{postTime}</span>
+          <div class="mt-2 space-x-1">
+            <span class="inline-block bg-blue-100 text-blue-800 rounded-full px-2 py-1 text-xs">{tag1}</span>
+            <span class="inline-block bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs">{tag2}</span>
+          </div>
+        </div>
+        <button
+          class="bg-blue-600 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400">Request
+          Full Data
+        </button>
+
+      </div>
     </div>
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Recommended user 2</p>
+
+    <!-- Post Card 2-->
+    <div class="border border-gray-300 rounded-lg shadow-md p-6 space-y-4">
+      <!-- Post Header -->
+      <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
+        <div class="flex items-center space-x-6">
+          <!-- User Profile Image -->
+          <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
+            <img src="{profileImage}" alt="img" class="w-full h-full object-cover">
+          </div>
+          <h3 class="font-semibold">{userName}</h3>
+        </div>
+        <span class="text-sm bg-green-100 text-green-800 p-2 rounded-full">{public/private}</span>
+      </div>
+
+      <!-- Post Content -->
+      <div>
+        <h2 class="mb-4">{postHeading}</h2>
+        <div class="border border-gray-200 rounded-lg p-4 text-sm text-gray-800">
+          <p>{postDescription}</p>
+          <div class="mt-4 flex space-x-4">
+            <img src="{sampleImage1}" alt="Sample Image 1" class="w-20 h-20 rounded-lg object-cover">
+            <img src="{sampleImage2}" alt="Sample Image 2" class="w-20 h-20 rounded-lg object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- Post Footer -->
+      <div class="flex items-center justify-between border-t border-gray-300 pt-4 mt-4">
+        <div class="text-sm text-gray-500 space-x-2">
+          <span>Posted on: {postedOn}</span>
+          <span>|</span>
+          <span>{postTime}</span>
+          <div class="mt-2 space-x-1">
+            <span class="inline-block bg-blue-100 text-blue-800 rounded-full px-2 py-1 text-xs">{tag1}</span>
+            <span class="inline-block bg-green-100 text-green-800 rounded-full px-2 py-1 text-xs">{tag2}</span>
+          </div>
+        </div>
+        <button
+          class="bg-blue-600 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400">View
+          Full Data
+        </button>
+
+      </div>
     </div>
-    <div class="bg-gray-100 border border-gray-300 rounded-lg shadow-md p-6 text-center">
-      <p>Recommended user 3</p>
-    </div>
-  </aside>
-</main>
+
+    <!-- add more posts here -->
+  </div>
+
+
 
 
   <!-- Footer -->
@@ -112,6 +173,7 @@
       <p class="text-sm text-gray-500">&copy; 2024 Cognify. All Rights Reserved.</p>
     </div>
   </footer>
+
 </body>
 
 </html>
