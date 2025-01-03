@@ -8,19 +8,10 @@ import Image from 'next/image';
 import { UserButton } from '@clerk/nextjs';
 import { useUser } from '@clerk/nextjs';
 
-const NavigationBar = () => {
-  // const [isScrolled, setIsScrolled] = useState(false);
+const NavigationBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { user } = useUser();
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     setIsScrolled(window.scrollY > 50);
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => window.removeEventListener('scroll', handleScroll);
-  // }, []);
 
   const navItems = [
     { name: 'Home', path: user ? `/individual/${user.id}/Home` : '/sign-in' },
@@ -46,6 +37,23 @@ const NavigationBar = () => {
           />
           <span className="text-white text-xl font-bold">Cognify</span>
         </Link>
+
+        {/* Search Bar */}
+        <div className="hidden md:flex items-center gap-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search..."
+            className="px-4 py-2 rounded-md"
+          />
+          <button
+            onClick={() => onSearch(searchQuery)}
+            className="text-white bg-blue-500 px-4 py-2 rounded-md"
+          >
+            Search
+          </button>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">

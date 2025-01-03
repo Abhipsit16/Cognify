@@ -17,6 +17,7 @@ function UserPosts({params}:{params :Promise<{UserID: string}>}) {
   interface Post {
     heading: string;
     Type: string;
+    _id: string;
   }
   const resolvedParams = React.use(params);
   const userID = resolvedParams.UserID;
@@ -105,7 +106,7 @@ console.log("here");
       {/* <h1>{Posts}</h1> */}
       <ul>
          {Posts?Posts.map((result, index) => (
-          <li key={index}> {result.heading} , {result.Type} </li>
+          <li key={index}> {result.heading} , {result.Type} , <a href={`/post/${result._id}/`}>Link</a> </li>
          )) : <li> No Posts </li>}
          </ul> 
          <br />

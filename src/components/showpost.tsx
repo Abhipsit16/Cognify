@@ -10,6 +10,7 @@ export default function ShowPost({ tags }: { tags: string[] }) {
   interface Post {
     heading: string;
     Type: string;
+    _id: string;
   }
 
   const [Posts, setPosts] = useState<[Post] | null>(null);
@@ -28,10 +29,9 @@ export default function ShowPost({ tags }: { tags: string[] }) {
   },[tags]);
 
   return (
-    <div className='p-4'> 
+    <div className='p-4 bg-cyan-100'> 
       <br />
-      <br />
-      <br />
+
       <h1>User feed</h1>
 
       <br />
@@ -39,7 +39,7 @@ export default function ShowPost({ tags }: { tags: string[] }) {
 
       <ul>
          {Posts?Posts.map((result, index) => (
-          <li key={index}> {result.heading} , {result.Type} </li>
+          <li key={index}> {result.heading} , {result.Type}, <a href={`/post/${result._id}/`}>Link</a>  </li>
          )) : <li> No Posts </li>}
          </ul> 
          <br />
