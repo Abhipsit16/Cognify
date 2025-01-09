@@ -44,133 +44,162 @@
     </header>
 
 
+    <!-- Notifications section -->
 
-<!-- Notifications Section -->
-<div class="container mt-8 flex flex-row space-x-6 mb-8 justify-center">
-    <!-- Received Section -->
-    <div class="p-6 border border-gray-300 rounded-lg bg-gray-50 shadow-lg">
-        <h2 class="font-semibold mb-4">Received</h2>
-        <!-- Example Received Box -->
-        <div class="bg-white flex items-start p-4 border border-gray-200 rounded-lg mb-4 shadow-sm">
-            <img src="" alt="User Profile" class="rounded-full w-12 h-12">
-            <div class="ml-4">
-                <h3 class="font-semibold">UserA</h3>
-                <p>Requested access to your dataset {Traffic Management}</p>
-                <div class="mt-3 flex gap-3">
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Accept
-                    </button>
-                    </a>
+    <div class="container mt-10 px-6 max-w-3xl mx-auto">
+        <!-- Tabs Navigation -->
+        <div class="flex border-b border-gray-300">
+            <button id="receivedTab" onclick="showTab('received')"
+                class="px-6 py-2 font-semibold border-b-2 border-transparent hover:text-blue-500 focus:text-blue-500 transition duration-300">
+                Received
+            </button>
+            <button id="sentTab" onclick="showTab('sent')"
+                class="px-6 py-2 font-semibold border-b-2 border-transparent hover:text-blue-500 focus:text-blue-500 transition duration-300">
+                Sent
+            </button>
+        </div>
 
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Deny
-                    </button>
-                    </a>
+        <!-- Received Section -->
+        <div id="receivedSection" class="mt-8 hidden mb-8">
 
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        View Profile
-                    </button>
-                    </a>
+            <!-- Request Cards -->
+            <div class="space-y-5">
+                <!-- Example Received Card 1 -->
+                <div class="p-6 border border-gray-300 rounded-lg shadow-sm flex">
+                    <!-- User Info -->
+                    <img src="{user-pfp}" alt="img" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-blue-600">{userName}</h3>
+                        <p class="text-gray-600">Requested full data for your post:</p>
+
+                        <!-- Requested Post Heading -->
+                        <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+                            <h4 class="font-semibold text-blue-700">{postHeading...THISCANBESTRETCHEDDDDDDDDDDDDDD}</h4>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-4 flex gap-3">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                                Accept
+                            </button>
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Decline
+                            </button>
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Example Received Card 2 -->
+                <div class="p-6 border border-gray-300 rounded-lg shadow-sm flex">
+                    <!-- User Info -->
+                    <img src="{user-pfp}" alt="img" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-blue-600">{userName}</h3>
+                        <p class="text-gray-600">Requested full data for your post:</p>
+
+                        <!-- Requested Post Heading -->
+                        <div class="mt-4 p-4 bg-gray-100 rounded-lg">
+                            <h4 class="font-semibold text-blue-700">{postHeading}</h4>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-4 flex gap-3">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                                Accept
+                            </button>
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Decline
+                            </button>
+                            <button class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                View Profile
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- add more cards here -->
+
             </div>
         </div>
 
-        <!-- Additional Received Boxes -->
-        <div class="bg-white flex items-start p-4 border border-gray-200 rounded-lg mb-4 shadow-sm">
-            <img src="" alt="User Profile" class="rounded-full w-12 h-12">
-            <div class="ml-4">
-                <h3 class="font-semibold">UserD</h3>
-                <p>Requested access to your dataset {Climate Change Analysis}</p>
-                <div class="mt-3 flex gap-3">
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Accept
-                    </button>
-                    </a>
+        <!-- Sent Section -->
+        <div id="sentSection" class="mt-8 hidden mb-8">
 
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Deny
-                    </button>
-                    </a>
-
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        View Profile
-                    </button>
-                    </a>
+            <!-- Sent Request Cards -->
+            <div class="space-y-5">
+                <!-- Card 1 -->
+                <div class="p-6 border border-gray-300 rounded-lg shadow-sm flex">
+                    <img src="user-pfp" alt="img" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-blue-600">{userName}</h3>
+                        <p class="text-gray-600">Accepted your data request on {Mars Crater Detection}</p>
+                        <div class="mt-4 flex gap-3">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                                View Full Data
+                            </button>
+                            <button class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Start a Conversation
+                            </button>
+                            <button class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Collaborate
+                            </button>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Card 2 -->
+                <div class="p-6 border border-gray-300 rounded-lg shadow-sm flex">
+                    <img src="user-pfp" alt="img" class="w-12 h-12 rounded-full">
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-blue-600">{userName}</h3>
+                        <p class="text-gray-600">Accepted your data request on {Antarctica ozone layer analysis}</p>
+                        <div class="mt-4 flex gap-3">
+                            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                                View Full Data
+                            </button>
+                            <button class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Start a Conversation
+                            </button>
+                            <button class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300 transition">
+                                Collaborate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- add more cards here -->
             </div>
         </div>
     </div>
 
-    <!-- Sent Section -->
-    <div class="p-6 border border-gray-300 rounded-lg bg-gray-50 shadow-lg">
-        <h2 class="font-semibold mb-4">Sent</h2>
-        <!-- Sent Box -->
-        <div class="flex items-start p-4 bg-white border border-gray-200 rounded-lg mb-4 shadow-sm">
-            <img src="" alt="User Profile" class="rounded-full w-12 h-12">
-            <div class="ml-4">
-                <h3 class="font-semibold">UserB</h3>
-                <p>Accepted your data request regarding {Quantum Computing}</p>
-                <div class="mt-3 flex gap-3">
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        View Full Data
-                    </button>
-                    <a href="chatroom.html">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Start a Conversation
-                    </button>
-                    <a href="dataroom.html">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Collaborate
-                    </button>
-                </div>
-            </div>
-        </div>
+    <!-- JavaScript for Tab Toggle -->
+    <script>
+        function showTab(tab) {
+            const receivedSection = document.getElementById('receivedSection');
+            const sentSection = document.getElementById('sentSection');
+            const receivedTab = document.getElementById('receivedTab');
+            const sentTab = document.getElementById('sentTab');
 
-        <!-- Additional Sent Boxes -->
-        <div class="flex items-start p-4 bg-white border border-gray-200 rounded-lg mb-4 shadow-sm">
-            <img src="" alt="User Profile" class="rounded-full w-12 h-12">
-            <div class="ml-4">
-                <h3 class="font-semibold">UserD</h3>
-                <p>Accepted your data request regarding {E-Waste Management}</p>
-                <div class="mt-3 flex gap-3">
-                    <a href="">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        View Full Data
-                    </button>
-                    <a href="chatroom.html">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Start a Conversation
-                    </button>
-                    <a href="dataroom.html">
-                        <button
-                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-300 transition ease-in-out duration-200">
-                        Collaborate
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            receivedSection.classList.add('hidden');
+            sentSection.classList.add('hidden');
+            receivedTab.classList.remove('border-blue-500', 'text-blue-500');
+            sentTab.classList.remove('border-blue-500', 'text-blue-500');
 
+            if (tab === 'received') {
+                receivedSection.classList.remove('hidden');
+                receivedTab.classList.add('border-blue-500', 'text-blue-500');
+            } else {
+                sentSection.classList.remove('hidden');
+                sentTab.classList.add('border-blue-500', 'text-blue-500');
+            }
+        }
 
+        // Default tab
+        showTab('received');
+    </script>
 
 
     <!-- Footer -->

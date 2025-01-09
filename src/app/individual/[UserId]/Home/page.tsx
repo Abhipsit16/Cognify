@@ -14,8 +14,10 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
     clerkId: string;
   }
   const resolvedParams = React.use(params);
+  console.log(resolvedParams);
   const userID = resolvedParams.UserID;
   const { user, isLoaded } = useUser();
+  // console.log(user);
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -27,14 +29,15 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
 
   useEffect(() => {
     if (isLoaded) {
-      if (!user) {
-        router.push('/sign-in');
-        return;
-      }
-      if (user.id !== userID) {
-        router.push('/');
-        return;
-      }
+
+      // if (!user) {
+      //   router.push('/sign-in');
+      //   return;
+      // }
+      // if (user.id !== userID) {
+      //   router.push('/');
+      //   return;
+      // }
       setIsAuthorized(true);
     }
   }, [isLoaded, user, userID, router]);
@@ -42,8 +45,10 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
   useEffect(() => {
     const fetchUserData = async () => {
       if (!isAuthorized) return;
+      console.log(userID);
 
       try {
+        console.log(userID);
         const response = await fetch('/api/getcurruser', {
           method: 'POST',
           headers: {

@@ -11,6 +11,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { userID } = req.body;
+      console.log(userID);
       const user = await getUserByClerkId(userID);
       
       if (!user) {
