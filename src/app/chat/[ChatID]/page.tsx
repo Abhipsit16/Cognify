@@ -1,10 +1,6 @@
 'use client';
-
-import NavigationBar from '@/components/Indivisual-nav-bar';
 import React, { useEffect, useState, useRef } from 'react';
-import io from 'socket.io-client';
-
-const socket = io();
+import socket from '@/lib/socketClient';
 
 function Chat({params , userId}:{params :{ chatID : string}, userId : string}) {
   const chatId = params.chatID;
@@ -58,7 +54,6 @@ function Chat({params , userId}:{params :{ chatID : string}, userId : string}) {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-      <NavigationBar/>
       <div className="flex-1 overflow-hidden flex flex-col">
         {/* Chat Container */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
