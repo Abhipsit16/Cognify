@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 import NavigationBar from './home-nav-bar';
 
 function FirstLogin() {
+  const navigate = useRouter();
   const [interests, setInterests] = useState('');
   const [role, setRole] = useState('individual'); // New state for role
   const { user } = useUser();
@@ -26,6 +28,7 @@ function FirstLogin() {
           }
         });
         console.log('User interests and role saved:', response.data);
+        navigate.replace('/');
       } catch (error) {
         console.error('Error saving user data:', error);
       }
@@ -69,6 +72,7 @@ function FirstLogin() {
                     checked={role === 'organization'}
                     onChange={(e) => setRole(e.target.value)}
                     className="mr-2"
+                    
                   />
                   Organization
                 </label>
@@ -85,6 +89,7 @@ function FirstLogin() {
                 onChange={(e) => setInterests(e.target.value)}
                 placeholder="e.g., technology, art, music, sports"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
+                required
               />
               <p className="mt-2 text-sm text-gray-500">
                 Separate multiple interests with commas

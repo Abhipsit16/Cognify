@@ -30,14 +30,14 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
   useEffect(() => {
     if (isLoaded) {
 
-      // if (!user) {
-      //   router.push('/sign-in');
-      //   return;
-      // }
-      // if (user.id !== userID) {
-      //   router.push('/');
-      //   return;
-      // }
+      if (!user) {
+        router.push('/sign-in');
+        return;
+      }
+      if (user.id !== userID) {
+        router.push('/');
+        return;
+      }
       setIsAuthorized(true);
     }
   }, [isLoaded, user, userID, router]);
@@ -88,7 +88,7 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
 
   return (
     <div className="p-4">
-      <NavigationBar onSearch={handleSearch} />
+      <NavigationBar showSearch={true} onSearch={(query) => handleSearch(query)} />
       <br />
       <br />
    

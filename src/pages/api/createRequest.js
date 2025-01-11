@@ -1,23 +1,20 @@
 import dbConnect from '@/lib/mongodb';
-import User from "@/lib/models/User";
-
-async function getUserByClerkId(clerkId) {
-  await dbConnect();
-  const user = await User.findOne({ clerkId: clerkId }).lean();
-  return user;
-}
+// import User from "@/lib/models/User";
+import Request from "@/lib/models/Request";
+// import Post from "@/lib/models/Post";
 
 export default async function handler(req, res) {
+  await dbConnect();
   if (req.method === 'POST') {
     try {
-      const { userID } = req.body;
-      const user = await getUserByClerkId(userID);
-      
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-      }
-      
-      return res.status(200).json(user);
+      const { fromUser, toUser, postId, message } = req.body; 
+      const newRequest = await Request.create({
+        fromUser,
+        toUser,
+        post: postId,
+        message,
+      });
+      return res.status(200).json({ success: true, request: newRequest });
     } catch (error) {
       return res.status(500).json({ error: error.message });
     }

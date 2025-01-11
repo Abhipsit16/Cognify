@@ -24,26 +24,12 @@ function UserPosts({params}:{params :Promise<{UserID: string}>}) {
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isAuthorized, setIsAuthorized] = useState(false);
   const [Posts, setPosts] = useState<[Post] | null>(null);
 
-  useEffect(() => {
-    if (isLoaded) {
-      if (!user) {
-        router.push('/sign-in');
-        return;
-      }
-      if (user.id !== userID) {
-        router.push('/');
-        return;
-      }
-      setIsAuthorized(true);
-    }
-  }, [isLoaded, user, userID, router]);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!isAuthorized) return;
+      
 
       try {
         const response = await fetch('/api/getcurruser', {
@@ -65,7 +51,6 @@ function UserPosts({params}:{params :Promise<{UserID: string}>}) {
     };
     fetchUserData();
     const fetchUserPosts = async () => {
-      if (!isAuthorized) return;
       console.log("Where");
       try {
         const response = await fetch('/api/getmypost', {method: 'POST',
@@ -79,15 +64,12 @@ function UserPosts({params}:{params :Promise<{UserID: string}>}) {
     };
     
     fetchUserPosts();
-  },[userID, isAuthorized]);
+  },[userID]);
 console.log("here");
 
   console.log(Posts);
   if (!isLoaded) {
     return <div>Loading...</div>;
-  }
-  if (!isAuthorized) {
-    return <div>Checking authorization...</div>;
   }
 // #############################################################################
   return (

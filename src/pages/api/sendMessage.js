@@ -1,6 +1,13 @@
 import connectToDatabase from '../../lib/mongodb';
-import Chat from '../../models/Chat';
+import Chat from '../../lib/models/Chat';
+import User from '../../lib/models/User';
 
+
+async function getUserByClerkId(clerkId) {
+  await connectToDatabase();
+  const user = await User.findOne({ clerkId: clerkId });
+  return user;
+}
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
@@ -8,15 +15,20 @@ export default async function handler(req, res) {
       
       const { chatId, senderId, message } = req.body;
 
+      // senderId = senderId.toString();
+      const user1 = await getUserByClerkId(senderId);
+
+      const senderID = user1._id;
+
       const newMessage = {
-        sender_id: senderId,
+        sender_id: senderID,
         message: message,
         sent_at: new Date()
       };
 
       // Find or create a chat document and add the message
       await Chat.updateOne(
-        { chat_id: chatId },
+        { _id: chatId },
         { $push: { messages: newMessage } },
         { upsert: true }
       );

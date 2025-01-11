@@ -1,7 +1,7 @@
 // "use client"
 import { redirect } from 'next/navigation';
-import Features from "@/components/features";
-import Feedbacks from "@/components/feedbacks";
+// import Features from "@/components/features";
+// import Feedbacks from "@/components/feedbacks";
 // import socket from "@/lib/socketClient";
 import dbConnect from "@/lib/mongodb";
 import User from "@/lib/models/User";

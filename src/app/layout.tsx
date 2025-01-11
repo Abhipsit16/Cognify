@@ -115,7 +115,7 @@ export default function RootLayout({
         <SignedIn>
         
         {children}
-        <Footer/>
+        {/* <Footer/> */}
         </SignedIn>
       </body>
     </html>

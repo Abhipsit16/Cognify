@@ -40,7 +40,7 @@ export default function ShowPost({ tags }: { tags: string[] }) {
       <ul>
          {Posts?Posts.map((result, index) => (
           <li key={index}> {result.heading} , {result.Type}, <a href={`/post/${result._id}/`}>Link</a>  </li>
-         )) : <li> No Posts </li>}
+         )).reverse() : <li> No Posts </li>}
          </ul> 
          <br />
       <br />

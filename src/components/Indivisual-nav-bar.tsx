@@ -8,14 +8,28 @@ import Image from 'next/image';
 import { UserButton } from '@clerk/nextjs';
 import { useUser } from '@clerk/nextjs';
 
-const NavigationBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
+const NavigationBar = ({ 
+  onSearch, 
+  showSearch = false 
+}: { 
+  onSearch?: (query: string) => void;
+  showSearch?: boolean;
+}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { user } = useUser();
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && onSearch) {
+      onSearch(searchQuery);
+    }
+  };
+
   const navItems = [
     { name: 'Home', path: user ? `/individual/${user.id}/Home` : '/sign-in' },
     { name: 'Post', path: user ? `/individual/${user.id}/posts` : '/sign-in' },
+    { name: 'Myrequests', path: user ? `/individual/${user.id}/myrequests` : '/sign-in' },
+    { name: 'Chats', path: user ? `/individual/${user.id}/chats` : '/sign-in' },
     { name: 'Help', path: '/help' },
   ];
 
@@ -39,21 +53,24 @@ const NavigationBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
         </Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center gap-4">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
-            className="px-4 py-2 rounded-md"
-          />
-          <button
-            onClick={() => onSearch(searchQuery)}
-            className="text-white bg-blue-500 px-4 py-2 rounded-md"
-          >
-            Search
-          </button>
-        </div>
+        {showSearch && (
+          <div className="hidden md:flex items-center gap-4">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Search..."
+              className="px-4 py-2 rounded-md"
+            />
+            <button
+              onClick={() => onSearch && onSearch(searchQuery)}
+              className="text-white bg-blue-500 px-4 py-2 rounded-md"
+            >
+              Search
+            </button>
+          </div>
+        )}
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">

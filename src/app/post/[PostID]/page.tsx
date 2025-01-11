@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import { Clock, User, Tag, Lock, Link as LinkIcon } from 'lucide-react';
+import RequestAccess from '@/components/request';
 
 function Post({ params }: { params: Promise<{ PostID: string }> }) {
   const resolvedParams = React.use(params);
@@ -198,6 +199,21 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
             )}
           </div>
         </article>
+        <br />
+        {/* <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} /> */}
+        <div className="space-y-2">
+                  {post.dataLink.map((link, index) => (
+                    <div key={index} className="bg-gray-50 p-3 rounded">
+                      {!link.AccessUsers.includes(UserID ?? '') ? (
+                        <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} />
+                      ) : (
+                        <span className="">
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+        <br />
       </main>
     </div>
   );
