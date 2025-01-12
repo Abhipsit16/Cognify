@@ -10,7 +10,7 @@ dotenv.config({ path: '.env.local' });
 const HF_API_KEY = process.env.API_KEY; // Replace with your actual API key
 const HF_API_URL = 'https://api-inference.huggingface.co/models/sentence-transformers/paraphrase-xlm-r-multilingual-v1';
 
-function orderSentencesBySimilarity(sourceSentence, sentences, similarityScores) {
+function orderSentencesBySimilarity(sentences, similarityScores) {
     return sentences.map((sentence, index) => ({
         sentence,
         similarity: similarityScores[index],
@@ -69,6 +69,6 @@ async function sentenceSimilarity(sourceSentence, sentences) {
         console.log("Error in fetching similarity scores");
         return;
     }
-    const newOrder = orderSentencesBySimilarity(sourceSentence, sentences, similarityScores);
+    const newOrder = orderSentencesBySimilarity(sentences, similarityScores);
     console.log(newOrder);
 })();
