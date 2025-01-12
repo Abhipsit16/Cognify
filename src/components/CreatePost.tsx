@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
-import styles from './CreatePost.module.css';
 
 export default function CreatePost() {
   const { user } = useUser();
@@ -94,8 +93,11 @@ export default function CreatePost() {
   };
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+<div className='p-4  width-full'>
+    <div className="max-w-2xl mx-auto p-6 bg-amber-100 rounded-lg shadow-md">
+      <h2 className='text-2xl font-bold mb-4 '>Create Post</h2>
+      
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <select 
           name="type" 
           value={formData.type} 
@@ -104,6 +106,7 @@ export default function CreatePost() {
             setPostType(e.target.value);
           }}
           required
+          className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">Select Type</option>
           <option value="announceRepo">Announce Repo</option>
@@ -112,12 +115,54 @@ export default function CreatePost() {
 
         {postType === 'announceRepo' && (
           <>
-            <input type="text" name="heading" value={formData.heading} onChange={handleChange} placeholder="Title" required />
-            <input type="file" name="dataSample" onChange={handleFileChange} />
-            <input type="text" name="dataLink" value={formData.dataLink} onChange={handleChange} placeholder="Data Link" required />
-            <textarea name="content" value={formData.content} onChange={handleChange} placeholder="Content" required />
-            <input type="text" name="Post_tags" value={formData.Post_tags} onChange={handleChange} placeholder="Tags (comma separated)" required />
-            <select name="accessLevel" value={formData.accessLevel} onChange={handleChange} required>
+            <input 
+              type="text" 
+              name="heading" 
+              value={formData.heading} 
+              onChange={handleChange} 
+              placeholder="Title" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <input 
+              type="file" 
+              name="dataSample" 
+              onChange={handleFileChange} 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <input 
+              type="text" 
+              name="dataLink" 
+              value={formData.dataLink} 
+              onChange={handleChange} 
+              placeholder="Data Link" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <textarea 
+              name="content" 
+              value={formData.content} 
+              onChange={handleChange} 
+              placeholder="Content" 
+              required 
+              className="p-3 border border-gray-300 rounded-md min-h-[100px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <input 
+              type="text" 
+              name="Post_tags" 
+              value={formData.Post_tags} 
+              onChange={handleChange} 
+              placeholder="Tags (comma separated)" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <select 
+              name="accessLevel" 
+              value={formData.accessLevel} 
+              onChange={handleChange} 
+              required
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            >
               <option value="public">Public</option>
               <option value="private">Private</option>
               <option value="restricted">Restricted</option>
@@ -127,14 +172,43 @@ export default function CreatePost() {
 
         {postType === 'dataRequest' && (
           <>
-            <input type="text" name="heading" value={formData.heading} onChange={handleChange} placeholder="Heading" required />
-            <textarea name="content" value={formData.content} onChange={handleChange} placeholder="Description" required />
-            <input type="text" name="Post_tags" value={formData.Post_tags} onChange={handleChange} placeholder="Tags (comma separated)" required />
+            <input 
+              type="text" 
+              name="heading" 
+              value={formData.heading} 
+              onChange={handleChange} 
+              placeholder="Heading" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <textarea 
+              name="content" 
+              value={formData.content} 
+              onChange={handleChange} 
+              placeholder="Description" 
+              required 
+              className="p-3 border border-gray-300 rounded-md min-h-[100px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <input 
+              type="text" 
+              name="Post_tags" 
+              value={formData.Post_tags} 
+              onChange={handleChange} 
+              placeholder="Tags (comma separated)" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
           </>
         )}
 
-        <button type="submit" className={styles.submitButton}>Create Post</button>
+        <button 
+          type="submit" 
+          className="bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Create Post
+        </button>
       </form>
+    </div>
     </div>
   );
 }

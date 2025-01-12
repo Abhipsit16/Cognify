@@ -97,8 +97,6 @@ function Chat({params}: {params: Promise<{chatID: string}>}) {
       }
 
       // Emit message to the server for real-time updates
-      
-
       // Clear input
       setNewMessage('');
     } catch (error) {

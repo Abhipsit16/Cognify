@@ -22,16 +22,20 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [tags, setTags] = useState<string[]>([]);
+  const [searched, setSearch] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showCreatePost, setShowCreatePost] = useState(false);
 
   const handleSearch = (query: string) => {
     setTags([query]);
+    setSearch(true);
   };
 
   useEffect(() => {
     if (isLoaded) {
 
       if (!user) {
-        router.push('/sign-in');
+        router.push('/');
         return;
       }
       if (user.id !== userID) {
@@ -87,39 +91,66 @@ function UserHome({params}: {params: Promise<{UserID: string}>}) {
   }
 
   return (
-    <div className="p-4">
+    <div>
       <NavigationBar showSearch={true} onSearch={(query) => handleSearch(query)} />
-      <br />
-      <br />
-   
-      <div className="p-4">
-        {currentUser ? (
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4">User Profile</h1>
-            <div className="space-y-2">
-              <p><strong>Username:</strong> {currentUser.username}</p>
-              <p><strong>Email:</strong> {currentUser.email}</p>
-              <p><strong>Clerk ID:</strong> {currentUser.clerkId}</p>
-              {/* Add more user details as needed */}
-            </div>
+        
+     
+      {/* Conditionally render user profile */}
+      {showProfile && currentUser && (
+        
+        <div className="bg-white rounded-lg shadow-md p-4 mx-4 mb-4 justify-between items-center mt-20 px-4 p-4">
+          <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+          <div className="space-y-2">
+            <p><strong>Username:</strong> {currentUser.username}</p>
+            <p><strong>Email:</strong> {currentUser.email}</p>
+            <p><strong>Clerk ID:</strong> {currentUser.clerkId}</p>
+            {/* Add more user details as needed */}
           </div>
-        ) : (
-          
-          <p> <br/>Loading user data...</p>
-        )}
-      </div> 
-      <br />
-      <CreatePost />
-      <br />
-      <br />
-      <h1>Posts with tags : {tags}</h1>
-      {tags.length > 0 ? (
-        <ShowPost tags={tags} />
-      ) : (
-        <p>Loading tags...</p>
+        </div>
       )}
-      <br />
-      <br />
+      {/* Conditionally render create post */}
+      {showCreatePost && (
+        <div className="mx-4 mb-4 justify-between items-center mt-20 px-4 p-4">
+          <CreatePost />
+        </div>
+      )}
+     
+      
+      {/* New header section with heading and buttons */}
+      <div className='p-4'>
+      <div className="flex justify-between items-center mt-20 px-4">
+        <h2 className="text-3xl font-bold">
+          {searched  ? 'Results' : 'Feed'}
+        </h2>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              setShowProfile(!showProfile);
+              setShowCreatePost(false);
+            }}
+            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+          >
+            View Profile
+          </button>
+          <button
+            onClick={() => {
+              setShowCreatePost(!showCreatePost);
+              setShowProfile(false);
+            }}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Create Post
+          </button>
+        </div>
+      </div>
+      </div>
+
+
+
+      {/* Always show feed below the header */}
+      <div className="mx-4">
+        <ShowPost tags={tags} />
+      </div>
     </div>
   )
 }

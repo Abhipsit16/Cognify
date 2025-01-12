@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { UserButton } from '@clerk/nextjs';
 import { useUser } from '@clerk/nextjs';
 
+
 const NavigationBar = ({ 
   onSearch, 
   showSearch = false 
@@ -18,6 +19,7 @@ const NavigationBar = ({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { user } = useUser();
+  
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && onSearch) {
@@ -27,19 +29,14 @@ const NavigationBar = ({
 
   const navItems = [
     { name: 'Home', path: user ? `/individual/${user.id}/Home` : '/sign-in' },
-    { name: 'Post', path: user ? `/individual/${user.id}/posts` : '/sign-in' },
-    { name: 'Myrequests', path: user ? `/individual/${user.id}/myrequests` : '/sign-in' },
+    { name: 'Posts', path: user ? `/individual/${user.id}/posts` : '/sign-in' },
+    { name: 'Requests', path: user ? `/individual/${user.id}/myrequests` : '/sign-in' },
     { name: 'Chats', path: user ? `/individual/${user.id}/chats` : '/sign-in' },
-    { name: 'Help', path: '/help' },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-       'bg-black'
-      }`}
-    >
-      <div className="px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-800 shadow-lg">
+      <div className="px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -86,9 +83,8 @@ const NavigationBar = ({
               </li>
             ))}
           </ul>
-          {/* Add UserButton */}
           <UserButton
-            showName
+           
             appearance={{
               elements: {
                 userButtonPrimaryIdentifier: {
@@ -96,6 +92,8 @@ const NavigationBar = ({
                   fontWeight: "bold",
                   color: "#ffffff",
                   fontFamily: "'Geist Sans', sans-serif",
+                  
+                  
                 },
               },
             }}

@@ -1,5 +1,4 @@
 "use client"
-import { useState } from "react"
 import { motion } from "framer-motion"
 interface FeatureProps {
     name: string
@@ -8,22 +7,13 @@ interface FeatureProps {
 
 function Features({name, text}: FeatureProps) {
 
-  const [hovered, sethovered]=useState(false)
   return (
     <motion.div 
-    className={`w-96 h-60 px-2 py-2 rounded-md flex-col items-center bg-gradient-to-r 
-        ${
-            hovered? "from-red-500 to-yellow-500 via-orange-500"
-            :"from-purple-700 to-blue-500 via-blue-700"
-        } shadow-lg`}
-    onMouseEnter={()=>sethovered(true)}
-    onMouseLeave={()=>sethovered(false)}
-    transition={{ duration: 3, delay:1, damping: 20}}
+    className="bg-black bg-opacity-80 p-10 rounded-3xl hover:translate-y-4 transition-all duration-300 ease-in-out"
+
 >
-      <h3 className={`h-1/2 text-4xl fond-bold text-center ${
-        hovered? "text-black bg-white":"text-white bg-black"
-      } rounded px-2 py-2 shadow-zinc-200`}>{name}</h3>
-      <p className="h-1/2 text-xl text-gray-100 text-center">{text}</p>
+      <h3 className="text-2xl text-[#00bfff] font-bold mb-4">{name}</h3>
+      <p className="text-lg text-gray-300">{text}</p>
     </motion.div>
   )
 }

@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// import NavigationBar from "../components/nav-bar";
-import Footer from "@/components/footer";
 import Features from "@/components/features";
-import Feedbacks from "@/components/feedbacks";
+// import Feedbacks from "@/components/feedbacks";
+import Image from "next/image";
+import SignInButton from "@/components/SignInButton";
 import {
   ClerkProvider,
-  SignIn,
   SignedIn,
   SignedOut,
-  // UserButton
+  SignUpButton,
 } from '@clerk/nextjs';
 
 const geistSans = Geist({
@@ -34,8 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const features = [
-    { name: "Data Analysis and Insights", text: "AI-driven insights to help you make smarter decisions." },
-    { name: "Data Visualisation", text: "Turn your data into interactive visual trends." },
+    { name: "Data Analysis & Insights", text: "AI-driven insights to help you make smarter decisions." },
+    { name: "Data Visualization", text: "Turn your data into interactive visual trends." },
     { name: "Data Sharing", text: "Seamlessly share data with the world." },
     { name: "Collaboration", text: "Real-time chatrooms to interact with organizations and collaborate on your data." },
   ];
@@ -57,68 +56,99 @@ export default function RootLayout({
       designation: "Researcher",
     },
   ];
+
   return (
     <ClerkProvider>
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SignedOut>
-    
-    <div className="grid grid-rows-[auto_1fr_auto] items-center justify-self-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <div className="mb-8">
-          <h1 className="text-orange-200 text-5xl">
-            Empowering Data, Amplifying Insights, Unlocking Potential
-          </h1>
-          <p className="text-white text-2xl justify-self-center mt-2">
-            Leverage AI to organize, analyze, and visualize your data.
-          </p>
-        </div>
-        <div>
-          <h2 className="text-orange-400 text-5xl text-center mb-12">Why Cognify?</h2>
-          <div className="container mx-auto px-8 py-16">
-            <div className="flex flex-wrap gap-12 justify-center">
-              {features.map((feature, index) => (
-                <Features key={index} name={feature.name} text={feature.text} />
-              ))}
-            </div>
-          </div>
-        </div>
-        <div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: "100vh",
-          }}
-        >
-          <SignIn routing="hash" />
-        </div>
-          <h2 className="text-orange-400 text-5xl text-center mb-12">What People Say</h2>
-          <div className="container mx-auto px-8 py-16">
-            <div className="flex flex-wrap gap-12 justify-center">
-              {reviews.map((review, index) => (
-                <Feedbacks
-                  key={index}
-                  text={review.text}
-                  name={review.name}
-                  designation={review.designation}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-        
-        </SignedOut>
-        <SignedIn>
-        
-        {children}
-        {/* <Footer/> */}
-        </SignedIn>
-      </body>
-    </html>
+      <html lang="en">
+        <head>
+          <link 
+            rel="stylesheet" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+            crossOrigin="anonymous" 
+            referrerPolicy="no-referrer" 
+          />
+        </head>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}>
+          <SignedOut>
+            <header className="flex justify-between items-center py-6 px-10 bg-[#1d4773] text-white">
+              <div className="logo">
+                <Image src="/logo.png" alt="Cognify" width={80} height={80} />
+              </div>
+              <nav>
+                <ul className="flex gap-6">
+                  <li><SignInButton /> </li>
+                </ul>
+              </nav>
+            </header>
+
+            <section className="text-center pt-16 pb-24 bg-gradient-to-br from-[#1d5999] to-[#146f25] text-white border-b-4 border-[#1f3e8f]">
+              <h1 className="text-[3.5rem] font-bold mb-10">Empowering Data, Amplifying Insights, Unlocking Potential</h1>
+              <p className="text-3xl mb-20">Leverage AI to organize, analyze, and visualize your data.</p>
+              <SignUpButton>
+                <button 
+                className="bg-gradient-to-br from-[#2a4f4e] to-[#0a322d] text-white px-8 py-4 rounded-full text-[1.2rem] font-bold uppercase hover:bg-gradient-to-br hover:from-[#1a3354] hover:to-[#191846] transition-all duration-300"
+                >Get Started / Sign Up</button>
+              </SignUpButton>
+
+            </section>
+
+            {/* Features Section */}
+            <section className="text-center py-20 px-5 bg-cover bg-center text-white"
+              style={{ backgroundImage: "url('/features_bg.jpg')" }}>
+              <h2 className="text-[2.4rem] mb-10 font-bold">Why Choose Cognify?</h2>
+              <div className="max-w-[800px] m-auto space-y-10">
+                {features.map((feature, index) => (
+                  <Features key={index} name={feature.name} text={feature.text} />
+                ))}
+              </div>
+            </section>
+
+            {/* Testimonials */}
+            <section className="py-12 pb-4 text-center bg-[#1d4773] text-white">
+              <h2 className="text-4xl mb-12 font-bold">What Our Users Say?</h2>
+              <div className="flex flex-wrap justify-center gap-8">
+                {reviews.map((review, index) => (
+                  <div key={index} className="bg-[#022140] p-10 max-w-md rounded-2xl text-left transition-all hover:translate-y-4 duration-300 ease-in-out">
+                    <p className="text-lg italic">{review.text}</p>
+                    <h3 className="text-xl text-[#00bfff] mt-4">- {review.name}</h3>
+                    <span className="text-gray-400">{review.designation}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Footer Section */}
+            <footer className="bg-[#0a1f44] text-white py-6 text-center border-t-[45px] border-[#1d4773]">
+              <nav className="mb-4">
+                <a href="#" className="mx-2 font-bold hover:text-[#78dd8b]">Support</a> |
+                <a href="#" className="mx-2 font-bold hover:text-[#78dd8b]">Contact</a> |
+                <a href="#" className="mx-2 font-bold hover:text-[#78dd8b]">Privacy Policy</a> |
+                <a href="#" className="mx-2 font-bold hover:text-[#78dd8b]">Terms of Service</a>
+              </nav>
+              <div className="flex justify-center space-x-4">
+                <a href="#" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-[#78dd8b] transform hover:scale-125 transition-all">
+                  <i className="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-[#78dd8b] transform hover:scale-125 transition-all">
+                  <i className="fa-brands fa-twitter"></i>
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-[#78dd8b] transform hover:scale-125 transition-all">
+                  <i className="fa-brands fa-facebook"></i>
+                </a>
+                <a href="https://github.com/Abhipsit16/Cognify" target="_blank" rel="noopener noreferrer" className="text-2xl hover:text-[#78dd8b] transform hover:scale-125 transition-all">
+                  <i className="fa-brands fa-github"></i>
+                </a>
+              </div>
+              <p className="mt-4 text-gray-400">&copy; 2024 Cognify. All Rights Reserved.</p>
+            </footer>
+          </SignedOut>
+          
+          <SignedIn>
+            {children}
+          </SignedIn>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
