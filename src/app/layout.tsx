@@ -71,7 +71,7 @@ export default function RootLayout({
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}>
           <SignedOut>
-            <header className="flex justify-between items-center py-6 px-10 bg-[#1d4773] text-white">
+            <header className="flex justify-between items-center py-6 px-10 bg-[#040053] text-white">
               <div className="logo">
                 <Image src="/logo.png" alt="Cognify" width={80} height={80} />
               </div>
