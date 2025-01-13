@@ -1,4 +1,5 @@
 // 'use client';
+import { join } from 'path';
 import React, { useState, useEffect } from 'react';
 // import CreatePost from '@/components/CreatePost';
 // Example usage:
@@ -29,7 +30,7 @@ export default function ShowPost({ tags }: { tags: string[] }) {
   },[tags]);
 
   return (
-    <div className='p-4 bg-cyan-100'> 
+    <div className='p-4 bg-cyan-100'>
       <br />
 
       {/* <h1>User feed</h1>
