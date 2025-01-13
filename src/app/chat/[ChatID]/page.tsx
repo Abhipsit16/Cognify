@@ -11,7 +11,7 @@ function Chat({params}: {params: Promise<{chatID: string}>}) {
   const{ user } = useUser();
   const userId = user?.id;
   const [UserID, setUser] = useState('');
-  const [messages, setMessages] = useState<{ sender_id: string; message: string }[]>([]);
+  const [messages, setMessages] = useState<{ sender_id: string; message: string, sent_at?: string }[]>([]);
   const [newMessage, setNewMessage] = useState('');
 
 
@@ -78,7 +78,8 @@ function Chat({params}: {params: Promise<{chatID: string}>}) {
     const message = {
       chatId,
       senderId: userId,
-      message: newMessage
+      message: newMessage,
+      sent_at: new Date().toISOString()
     };
     socket.emit('send_message', message);
 
@@ -131,10 +132,16 @@ function Chat({params}: {params: Promise<{chatID: string}>}) {
                   <p className={`text-xs mt-1 ${
                     isCurrentUser ? 'text-blue-100' : 'text-gray-500'
                   }`}>
-                    {new Date().toLocaleTimeString([], { 
-                      hour: '2-digit', 
-                      minute: '2-digit'
-                    })}
+                    {msg.sent_at
+                      ? new Date(msg.sent_at).toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                      : new Date().toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })
+                    }
                   </p>
                 </div>
               </div>
