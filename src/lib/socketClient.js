@@ -23,7 +23,8 @@ function getWifiIPAddress() {
 
 
 const ipAddress = getWifiIPAddress();
-socket = io(`192.168.87.64:3001`); // Connect to server
+// socket = io(`192.168.87.64:3001`); // Connect to server
+socket=io('http://localhost:3001');
 console.log(`Connecting to: http://${ipAddress}:3001`);
 
 export default socket;
