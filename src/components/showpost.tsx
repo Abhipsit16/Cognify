@@ -39,16 +39,18 @@ export default function ShowPost({ tags }: { tags: string[] }) {
 
       <div className="space-y-4">
         {Posts && Posts.length > 0 ? (
-          <ul className="space-y-2">
-            {Posts.map((result, index) => (
-              <li key={index} className="bg-white p-3 rounded-md shadow-md">
-                <span className="font-semibold">{result.heading}</span> - {result.Type}
-                <a href={`/post/${result._id}/`} className="ml-2 text-blue-600 hover:underline">
-                  View Post
-                </a>
-              </li>
-            )).reverse()}
-          </ul>
+          // <ul className="space-y-2">
+          //   {Posts.map((result, index) => (
+          //     <li key={index} className="bg-white p-3 rounded-md shadow-md">
+          //       <span className="font-semibold">{result.heading}</span> - {result.Type}
+          //       <a href={`/post/${result._id}/`} className="ml-2 text-blue-600 hover:underline">
+          //         View Post
+          //       </a>
+          //     </li>
+          //   )).reverse()}
+          // </ul>
+          <div></div>
+          
         ) : (
           <p>No Posts</p>
         )}
