@@ -79,7 +79,7 @@ function Profile({params}: {params: Promise<{UserID: string}>}) {
     };
 
     const handleViewPosts = () => {
-        router.push(`/individual/${userID}/posts`);
+        router.push(`/individual/${currentUser?.clerkId}/posts`);
     };
 
     if (!currentUser || !isLoaded) {
