@@ -4,13 +4,15 @@
 //you can now use the code and also find out the tags
 import dotenv from 'dotenv';
 import fetch from 'node-fetch';
+// import User from '@/lib/models/User';
+import Tags from '@/lib/models/Tag';
 
 dotenv.config({ path: '.env.local' });
 
 const HF_API_KEY = process.env.API_KEY; // Replace with your actual API key
 const HF_API_URL = 'https://api-inference.huggingface.co/models/sentence-transformers/paraphrase-xlm-r-multilingual-v1';
 
-const filter_coefficient = 0.2;
+const filter_coefficient = 0.1;
 
 function orderSentencesBySimilarity(sentences, similarityScores) {
     return sentences
@@ -21,6 +23,14 @@ function orderSentencesBySimilarity(sentences, similarityScores) {
         .filter(item => item.similarity >= filter_coefficient)
         .sort((a, b) => b.similarity - a.similarity)
         .map(item => item.sentence);
+}
+
+async function fetchalltags() {
+    const Tagss = await Tags.find({}, 'name').lean();
+    console.log('Tagsss:', Tagss);
+    const tagNames = Tagss.map(tag => tag.name);
+    console.log('Tags:', tagNames);
+    return tagNames;
 }
 
 async function fetchWithRetry(url, options, retries = 5) {
@@ -37,6 +47,8 @@ async function fetchWithRetry(url, options, retries = 5) {
 }
 
 async function sentenceSimilarity(sourceSentence, sentences) {
+    console.log('sourceSentence:', sourceSentence);
+    console.log('sentences:', sentences);
     try {
         const payload = {
             inputs: {
@@ -66,7 +78,7 @@ export default async function handler(req, res) {
     if(req.method=='POST'){
     try {
         const sourceSentence = req.body.searchSentence;
-        const sentences = req.body.tags;
+        const sentences = await fetchalltags();
 
         if (!sourceSentence || !sentences) {
             return res.status(400).json({ error: "Invalid input" });

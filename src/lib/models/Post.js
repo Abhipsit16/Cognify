@@ -17,7 +17,7 @@ const postSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User document
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag' }], // Reference to Tag documents
     createdAt: { type: Date, default: Date.now },
-    dataSample: { type: String, }, // Nullable field for image, file, or video
+    dataSample: { type: String }, // store base64 file data
     dataLink: [Datalinkschema],
     AccessLevel: { type: String},
     // ... other post fields

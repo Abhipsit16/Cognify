@@ -32,7 +32,7 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ searchSentence: query, tags: tags }),
+        body: JSON.stringify({ searchSentence: query }),
       });
 
       if (!response.ok) {
@@ -112,7 +112,12 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
       {/* Conditionally render user profile */}
       {showProfile && currentUser && (
         <div className="bg-white rounded-lg shadow-md p-4 mx-4 mb-4 justify-between items-center mt-20 px-4 p-4">
-          <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold mb-4">User Profile</h1>
+            <a href={`/profile/${currentUser._id}`} className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+              View Full Profile
+            </a>
+          </div>
           <div className="space-y-2">
             <p>
               <strong>Username:</strong> {currentUser.username}
@@ -161,9 +166,16 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
       </div>
 
       {/* Always show feed below the header */}
-      <div className="mx-4">
-        <ShowPost tags={tags} />
-      </div>
+      {tags.length > 0 ? (
+        <div className="mx-4">
+          <ShowPost tags={tags} searched={searched} />
+        </div>
+      ) : (
+        <div className="mx-4">
+         <p>Loading Posts</p> 
+        </div>
+      )}
+      
     </div>
   );
 }

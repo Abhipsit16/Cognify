@@ -2,7 +2,7 @@
 
 import NavigationBar from '@/components/Indivisual-nav-bar';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 import { Clock, User, Tag, Lock, Link as LinkIcon } from 'lucide-react';
 import RequestAccess from '@/components/request';
@@ -11,7 +11,7 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
   const resolvedParams = React.use(params);
   const PostID = resolvedParams.PostID;
   const { user, isLoaded } = useUser();
-  const router = useRouter();
+  // const router = useRouter();
 
   interface Post {
     heading: string;
@@ -28,8 +28,11 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [authorName, setAuthorName] = useState<string>('');
+  // const [authorID, setAuthorID] = useState<string>('');
   const [UserID, setUser] = useState<string>('');
   const [tagNames, setTagNames] = useState<string[]>([]);
+  const [showResponseBox, setShowResponseBox] = useState(false);
+  const [responseText, setResponseText] = useState('');
 
   useEffect(() => {
     async function fetchData() {
@@ -49,6 +52,7 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
         if (authorResponse.ok) {
           const authorData = await authorResponse.json();
           setAuthorName(authorData.username || 'Unknown Author');
+          // setAuthorID(authorData.clerkId || 'Unknown Author');
         }
 
         const UserResponse = await fetch('/api/getcurruser', {
@@ -81,13 +85,6 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
     fetchData();
   }, [PostID,user?.id]);
 
-  useEffect(() => {
-    if (post && isLoaded) {
-      if (post.author !== UserID && post.AccessLevel !== 'public') {
-        router.push('/');
-      }
-    }
-  }, [post, isLoaded, UserID, router]);
 
   if (error) {
     return (
@@ -108,6 +105,26 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
     );
   }
 
+  function handleSendResponse() {
+    fetch('/api/respond', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ postId: PostID, dataLink: responseText, userId: UserID }),
+    })
+    .then(() => {
+      setResponseText('');
+      alert('Response sent successfully!');
+      // ...existing code...
+    })
+    .catch(err => console.error(err));
+  }
+
+  function canSeeLink(post: Post, link: { datalink: string; AccessUsers: string[] }, userId: string) {
+    if (post.Type === 'dataRequest') return true;
+    if (post.AccessLevel === 'public') return true;
+    return link.AccessUsers.includes(userId ?? '');
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <NavigationBar onSearch={() => { /* handle search */ }} />
@@ -120,6 +137,9 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
               <div className="flex items-center">
                 <User className="w-4 h-4 mr-2" />
                 <span>{authorName}</span>
+                <a href={`/profile/${post.author}`} className="ml-2 text-sm text-blue-600 hover:text-blue-800 underline">
+                  View Profile
+                </a>
               </div>
               <div className="flex items-center">
                 <Clock className="w-4 h-4 mr-2" />
@@ -151,27 +171,29 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
             {post.dataSample && (
               <div className="bg-gray-50 p-4 rounded-lg mb-6">
                 <h3 className="font-semibold text-gray-700 mb-2">Data Sample</h3>
-                <p className="text-gray-600">{post.dataSample}</p>
+                {post.dataSample.startsWith('data:image/') ? (
+                  <img src={post.dataSample} alt="Data Sample" className="max-w-full h-auto" />
+                ) : (
+                  <div>
+                    <a
+                      href={post.dataSample}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 mr-4"
+                    >
+                      Open
+                    </a>
+                    <a
+                      href={post.dataSample}
+                      download="dataSample"
+                      className="text-blue-600"
+                    >
+                      Download
+                    </a>
+                  </div>
+                )}
               </div>
             )}
-
-            {/* {post.dataLink && (
-              <div className="border-t pt-6">
-                <h3 className="font-semibold text-gray-700 mb-4 flex items-center">
-                  <LinkIcon className="w-4 h-4 mr-2" />
-                  Data Links
-                </h3>
-                <div className="space-y-2">
-                  {post.dataLink.map((link, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded">
-                      <span className="filter blur-sm text-gray-500">
-                        No link
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )} */}
 
             {post.dataLink && isLoaded && (
               <div className="border-t pt-6">
@@ -182,16 +204,15 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
                 <div className="space-y-2">
                   {post.dataLink.map((link, index) => (
                     <div key={index} className="bg-gray-50 p-3 rounded">
-                      {link.AccessUsers.includes(UserID ?? '')? (
-                        <a href={link.datalink} 
-                           className="text-blue-600 hover:text-blue-800 transition-colors">
-                          {link.datalink}
-                        </a>
-                      ) : (
-                        <span className={`filter ${(post.AccessLevel === "private")? "blur-sm": " "} text-gray-500`}>
-                          No link
-                        </span>
-                      )}
+                      {canSeeLink(post, link, UserID)
+                        ? (
+                          <a href={link.datalink} className="text-blue-600 hover:text-blue-800 transition-colors">
+                            {link.datalink}
+                          </a>
+                        ) : (
+                          <span className="filter blur-sm text-gray-500">No link</span>
+                        )
+                      }
                     </div>
                   ))}
                 </div>
@@ -200,20 +221,45 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
           </div>
         </article>
         <br />
-        {/* <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} /> */}
         <div className="space-y-2">
-                  {post.dataLink.map((link, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded">
-                      {!link.AccessUsers.includes(UserID ?? '') ? (
-                        <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} />
-                      ) : (
-                        <span className="">
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
+          {post.dataLink.map((link, index) => {
+            const linkVisible = canSeeLink(post, link, UserID);
+            return (
+              <div key={index} className="bg-gray-50 p-3 rounded">
+                {(!linkVisible && post.Type !== 'dataRequest' && post.AccessLevel !== 'public') ? (
+                  <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} />
+                ) : (
+                  <span className=""></span>
+                )}
+              </div>
+            );
+          })}
+        </div>
         <br />
+        {post.Type === 'dataRequest' && (
+          <div className="mt-4">
+            <button onClick={() => setShowResponseBox(!showResponseBox)}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-200 ease-in-out transform hover:scale-105">
+              Respond
+            </button>
+            {showResponseBox && (
+              <div className="mt-2">
+                <input 
+              type="text" 
+              name="dataLink" 
+              value={responseText} 
+              onChange={(e) => setResponseText(e.target.value)}
+              placeholder="Data Link" 
+              required 
+              className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+                <button className="ml-2" onClick={handleSendResponse}>
+                  Send response
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </main>
     </div>
   );

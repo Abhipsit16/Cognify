@@ -31,6 +31,17 @@ export default async function handler(req, res) {
       .populate('author', 'username email') // Include author details
       .exec();
 
+    const tagOrder = {};
+    tagNames.forEach((tag, index) => {
+      tagOrder[tag] = index;
+    });
+
+    posts.sort((a, b) => {
+      const aIndex = a.tags.find(t => tagOrder[t.name] !== undefined)?.name;
+      const bIndex = b.tags.find(t => tagOrder[t.name] !== undefined)?.name;
+      return tagOrder[aIndex] - tagOrder[bIndex];
+    });
+
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);

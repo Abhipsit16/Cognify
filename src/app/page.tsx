@@ -59,7 +59,7 @@ export default async function Home() {
       redirect(`/individual/${user.id}/Home`)
       );}
     else if(role == 'organization'){return(
-      redirect(`/organisation/${user.id}/Home`)
+      redirect(`/individual/${user.id}/Home`)
     ); 
   }
   }

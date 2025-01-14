@@ -8,11 +8,13 @@ import Shortpost from './shortpost';
 //     .then(posts => console.log(posts))
 //     .catch(error => console.error(error));
 
-export default function ShowPost({ tags }: { tags: string[] }) {
+export default function ShowPost({ tags, searched }: { tags: string[]; searched: boolean }) {
   interface Post {
     heading: string;
     Type: string;
     _id: string;
+    createdAt: string;  // Add this field
+    author
   }
 
   const [Posts, setPosts] = useState<[Post] | null>(null);
@@ -30,6 +32,10 @@ export default function ShowPost({ tags }: { tags: string[] }) {
    
   },[tags]);
 
+  const displayedPosts = searched ? Posts : [...(Posts || [])].sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
   return (
     <div className='p-4 bg-white rounded-md shadow-md'>
       <br />
@@ -40,13 +46,13 @@ export default function ShowPost({ tags }: { tags: string[] }) {
       <br /> */}
 
       <div className="space-y-4">
-        {Posts && Posts.length > 0 ? (
+        {displayedPosts && displayedPosts.length > 0 ? (
           <ul className="space-y-2">
-          {Posts.map((result, index) => (
+          {displayedPosts.map((result, index) => (
             <li key={index} className="bg-white p-3 rounded-md shadow-md">
               <Shortpost post={result} />
             </li>
-          )).reverse()}
+          ))}
         </ul>
         
         ) : (
