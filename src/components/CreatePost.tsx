@@ -164,7 +164,6 @@ export default function CreatePost() {
               className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="public">Public</option>
-              <option value="private">Private</option>
               <option value="restricted">Restricted</option>
             </select>
           </>
