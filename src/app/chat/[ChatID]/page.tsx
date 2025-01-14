@@ -4,10 +4,10 @@ import socket from '@/lib/socketClient';
 import { useUser } from '@clerk/nextjs';
 import NavigationBar from '@/components/Indivisual-nav-bar';
 
-function Chat({params}: {params: Promise<{chatID: string}>}) {
+function Chat({params}: {params: Promise<{ChatID: string}>}) {
   const resolvedParams = React.use(params);
       // const userID = resolvedParams.UserID;
-  const chatId = resolvedParams.chatID;
+  const chatId = resolvedParams.ChatID;
   const{ user } = useUser();
   const userId = user?.id;
   const [UserID, setUser] = useState('');
