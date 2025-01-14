@@ -182,13 +182,13 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
                 <div className="space-y-2">
                   {post.dataLink.map((link, index) => (
                     <div key={index} className="bg-gray-50 p-3 rounded">
-                      {link.AccessUsers.includes(UserID ?? '') ? (
+                      {link.AccessUsers.includes(UserID ?? '')? (
                         <a href={link.datalink} 
                            className="text-blue-600 hover:text-blue-800 transition-colors">
                           {link.datalink}
                         </a>
                       ) : (
-                        <span className="filter blur-sm text-gray-500">
+                        <span className={`filter ${(post.AccessLevel === "private")? "blur-sm": " "} text-gray-500`}>
                           No link
                         </span>
                       )}
