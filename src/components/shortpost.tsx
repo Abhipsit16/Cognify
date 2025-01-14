@@ -1,32 +1,41 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react';
 
 interface Post {
   heading: string;
   Type: string;
   _id: string;
-  // author: string
+  author: string
 }
 
-function Shortpost({ post }: { post: Post }) {
+function Shortpost({ post}: { post: Post}) {
+  const [name, setName]=useState("Loading...")
+  useEffect(()=>{
+    async function fetchDetails(){
+      try{
+
+        const authorResponse= await fetch(`/api/getthisuser`,{
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({userId: post.author})
+        });
+        if(authorResponse.ok){
+          const authorData= await authorResponse.json();
+          const authorName=authorData.username || "Unknown";
+          setName(authorName);
+        }
+      }catch(err){
+        console.error(err.message);
+      }
+    }
+    fetchDetails();
+  },[]);
   return (
 
 <div className="border border-gray-300 rounded-lg shadow-md p-6 space-y-4 justify-center">
-      {/* Post Header */}
-      <div className="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
-  {/* Left Section: Username */}
-  <h3 className="font-semibold">{"hello"}</h3>
 
-  {/* Center Section: Post Tags */}
-  {/* <div className="flex flex-wrap space-x-2">
-    {post.Post_Tags.map((tag, index) => (
-      <span
-        key={index}
-        className="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full"
-      >
-        {tag}
-      </span>
-    ))}
-  </div> */}
+      <div className="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
+
+  <h3 className="font-semibold">"name"</h3>
 
   {/* Right Section: Type and Access Level */}
   <div className="flex space-x-4">
