@@ -39,7 +39,6 @@ function Shortpost({ post }: { post: Post }) {
   </div>
 </div>
 
-
       {/* Post Content */}
       <div>
         <h2 className="mb-4 font-bold text-xl">{post.heading}</h2>

@@ -35,7 +35,7 @@ const NavigationBar = ({
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-800 shadow-lg">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#040053] shadow-lg">
       <div className="px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2">
