@@ -41,7 +41,7 @@ Before using Cognify, ensure the following steps are completed:
 
 4. **Update Socket Client Configuration**
    - Open the `socketClient.js` file.
-   - If needed, replace the IP address with your local system's IP address.
+   - If needed update line 27 "socket=io('http://localhost:3001')" to match the ip of the server where the app or socket server is hosted.
 
 ---
 
