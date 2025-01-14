@@ -13,6 +13,8 @@ export default function ShowPost({ tags, searched }: { tags: string[]; searched:
     heading: string;
     Type: string;
     _id: string;
+    createdAt: string;  // Add this field
+    author
   }
 
   const [Posts, setPosts] = useState<[Post] | null>(null);
@@ -30,7 +32,9 @@ export default function ShowPost({ tags, searched }: { tags: string[]; searched:
    
   },[tags]);
 
-  const displayedPosts = searched ? Posts : [...(Posts || [])].reverse();
+  const displayedPosts = searched ? Posts : [...(Posts || [])].sort((a, b) => 
+    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
   return (
     <div className='p-4 bg-white rounded-md shadow-md'>

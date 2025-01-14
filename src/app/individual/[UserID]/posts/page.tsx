@@ -5,6 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 // import CreatePost from '@/components/CreatePost';
 import NavigationBar from '@/components/Indivisual-nav-bar';
+import Shortpost from '@/components/shortpost';
 
 function UserPosts({params}:{params :Promise<{UserID: string}>}) {
 
@@ -18,6 +19,7 @@ function UserPosts({params}:{params :Promise<{UserID: string}>}) {
     heading: string;
     Type: string;
     _id: string;
+    author
   }
   const resolvedParams = React.use(params);
   const userID = resolvedParams.UserID;
@@ -88,7 +90,8 @@ console.log("here");
       {/* <h1>{Posts}</h1> */}
       <ul>
          {Posts?Posts.map((result, index) => (
-          <li key={index}> {result.heading} , {result.Type} , <a href={`/post/${result._id}/`}>Link</a> </li>
+          // <li key={index}> {result.heading} , {result.Type} , <a href={`/post/${result._id}/`}>Link</a> </li>
+          <li key={index}><Shortpost post={result} /></li>
          )) : <li> No Posts </li>}
          </ul> 
          <br />

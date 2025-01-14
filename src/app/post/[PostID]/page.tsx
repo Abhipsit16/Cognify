@@ -151,27 +151,29 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
             {post.dataSample && (
               <div className="bg-gray-50 p-4 rounded-lg mb-6">
                 <h3 className="font-semibold text-gray-700 mb-2">Data Sample</h3>
-                <p className="text-gray-600">{post.dataSample}</p>
+                {post.dataSample.startsWith('data:image/') ? (
+                  <img src={post.dataSample} alt="Data Sample" className="max-w-full h-auto" />
+                ) : (
+                  <div>
+                    <a
+                      href={post.dataSample}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 mr-4"
+                    >
+                      Open
+                    </a>
+                    <a
+                      href={post.dataSample}
+                      download="dataSample"
+                      className="text-blue-600"
+                    >
+                      Download
+                    </a>
+                  </div>
+                )}
               </div>
             )}
-
-            {/* {post.dataLink && (
-              <div className="border-t pt-6">
-                <h3 className="font-semibold text-gray-700 mb-4 flex items-center">
-                  <LinkIcon className="w-4 h-4 mr-2" />
-                  Data Links
-                </h3>
-                <div className="space-y-2">
-                  {post.dataLink.map((link, index) => (
-                    <div key={index} className="bg-gray-50 p-3 rounded">
-                      <span className="filter blur-sm text-gray-500">
-                        No link
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )} */}
 
             {post.dataLink && isLoaded && (
               <div className="border-t pt-6">
@@ -200,7 +202,6 @@ function Post({ params }: { params: Promise<{ PostID: string }> }) {
           </div>
         </article>
         <br />
-        {/* <RequestAccess postId={PostID} currentUser={UserID} authorId={post.author} /> */}
         <div className="space-y-2">
                   {post.dataLink.map((link, index) => (
                     <div key={index} className="bg-gray-50 p-3 rounded">

@@ -12,7 +12,7 @@ dotenv.config({ path: '.env.local' });
 const HF_API_KEY = process.env.API_KEY; // Replace with your actual API key
 const HF_API_URL = 'https://api-inference.huggingface.co/models/sentence-transformers/paraphrase-xlm-r-multilingual-v1';
 
-const filter_coefficient = 0.2;
+const filter_coefficient = 0.1;
 
 function orderSentencesBySimilarity(sentences, similarityScores) {
     return sentences
