@@ -18,7 +18,7 @@ function orderSentencesBySimilarity(sentences, similarityScores) {
             sentence,
             similarity: similarityScores[index],
         }))
-        // .filter(item => item.similarity >= filter_coefficient)
+        .filter(item => item.similarity >= filter_coefficient)
         .sort((a, b) => b.similarity - a.similarity)
         .map(item => item.sentence);
 }

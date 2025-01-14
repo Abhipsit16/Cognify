@@ -4,7 +4,7 @@ interface Post {
   heading: string;
   Type: string;
   _id: string;
-  author: string
+  // author: string
 }
 
 function Shortpost({ post }: { post: Post }) {
@@ -14,7 +14,7 @@ function Shortpost({ post }: { post: Post }) {
       {/* Post Header */}
       <div className="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
   {/* Left Section: Username */}
-  <h3 className="font-semibold">{post.author}</h3>
+  <h3 className="font-semibold">{"hello"}</h3>
 
   {/* Center Section: Post Tags */}
   {/* <div className="flex flex-wrap space-x-2">

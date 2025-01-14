@@ -25,7 +25,7 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
   const [showCreatePost, setShowCreatePost] = useState(false);
 
   
-  const handleSearch = async (query: string, tags: string[]) => {
+  const handleSearch = async (query: string) => {
     try {
       const response = await fetch('/api/huggingsentence', {
         method: 'POST',
@@ -45,6 +45,7 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
       setSearch(true);
     } catch (error) {
       console.error('Error during search:', error);
+      setTags([query]);
     }
   };
 
@@ -106,7 +107,7 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
 
   return (
     <div>
-      <NavigationBar showSearch={true} onSearch={(query) => handleSearch(query,tags)} />
+      <NavigationBar showSearch={true} onSearch={(query) => handleSearch(query)} />
 
       {/* Conditionally render user profile */}
       {showProfile && currentUser && (
