@@ -32,7 +32,7 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ searchSentence: query, tags: tags }),
+        body: JSON.stringify({ searchSentence: query }),
       });
 
       if (!response.ok) {
@@ -161,9 +161,16 @@ function UserHome({ params }: { params: Promise<{ UserID: string }> }) {
       </div>
 
       {/* Always show feed below the header */}
-      <div className="mx-4">
-        <ShowPost tags={tags} />
-      </div>
+      {tags.length > 0 ? (
+        <div className="mx-4">
+          <ShowPost tags={tags} searched={searched} />
+        </div>
+      ) : (
+        <div className="mx-4">
+         <p>Loading Posts</p> 
+        </div>
+      )}
+      
     </div>
   );
 }
