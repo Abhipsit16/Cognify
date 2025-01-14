@@ -33,10 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const features = [
-    { name: "Data Analysis & Insights", text: "AI-driven insights to help you make smarter decisions." },
-    { name: "Data Visualization", text: "Turn your data into interactive visual trends." },
-    { name: "Data Sharing", text: "Seamlessly share data with the world." },
     { name: "Collaboration", text: "Real-time chatrooms to interact with organizations and collaborate on your data." },
+    { name: "Data Sharing", text: "Seamlessly share data with the world." },
+    { name: "Data Visualization", text: "Turn your data into interactive visual trends." },
+    { name: "Data Analysis & Insights", text: "AI-driven insights to help you make smarter decisions." },
   ];
 
   const reviews = [

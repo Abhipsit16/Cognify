@@ -31,7 +31,7 @@ export default function ShowPost({ tags }: { tags: string[] }) {
   },[tags]);
 
   return (
-    <div className='p-4 bg-cyan-100'>
+    <div className='p-4 bg-white rounded-md shadow-md'>
       <br />
 
       {/* <h1>User feed</h1>
